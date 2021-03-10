@@ -24,11 +24,7 @@ export default function Calendar(props: any) {
   const [calYears, setCalYears] = useState<Array<number[]> | null>(null);
   const [showTenYears, setShowTenYears] = useState(false);
   const [tenYearIndex, setTenYearIndex] = useState<number | null>(null);
-  const [minDay] = useState(props.minDay || 1);
-  const [minMonth] = useState(props.minMonth || 0);
-  const [minYear] = useState(props.minYear || null);
-  const [maxMonth] = useState(props.maxMonth || 0);
-  const [maxYear] = useState(props.maxYear || null);
+  const CAL_YEAR = new Date().getFullYear();
 
   const daysMap: { [k: string]: string } = {
     Sunday: "Sun",
@@ -40,10 +36,9 @@ export default function Calendar(props: any) {
     Saturday: "Sat",
   };
 
-  const CAL_YEAR = new Date().getFullYear();
   const getCalYears = useCallback(() => {
-    const maxYearsToShow = 200;
-    const startYear = CAL_YEAR;
+    const maxYearsToShow = 150;
+    const startYear = CAL_YEAR - 100;
     const years = [];
     let tenYears: number[] = [];
     for (let i = 0; i <= maxYearsToShow; i++) {
@@ -54,7 +49,7 @@ export default function Calendar(props: any) {
       }
     }
     return years;
-  }, [curYear]);
+  }, [CAL_YEAR]);
 
   useLayoutEffect(() => {
     setCalYears(getCalYears());
@@ -132,14 +127,14 @@ export default function Calendar(props: any) {
         {!showMonths &&
           !showYears &&
           !showTenYears &&
-          renderYearDecArrow(curYear, minYear, onYearDec)}
+          renderYearDecArrow(onYearDec)}
 
         {/** ----- Render Month Decrement Arrow ---- */}
 
         {!showMonths &&
           !showYears &&
           !showTenYears &&
-          renderMonthDecArrow(onMonthDec, curYear, curMonth, minYear, minMonth)}
+          renderMonthDecArrow(onMonthDec)}
 
         {/** --- If 10 years calendar window is selected Render ten years duration Decrement Arrow ---- */}
         {showTenYears && !showMonths && !showYears && (
@@ -165,10 +160,6 @@ export default function Calendar(props: any) {
             setShowMonths,
             months[curMonth],
             curYear,
-            minYear,
-            maxYear,
-            minMonth,
-            curMonth,
             "calendar-10year-header-content"
           )}
 
@@ -182,10 +173,6 @@ export default function Calendar(props: any) {
             setShowMonths,
             months[curMonth],
             curYear,
-            minYear,
-            maxYear,
-            minMonth,
-            curMonth,
             "calendar-month-header-content"
           )}
 
@@ -199,10 +186,6 @@ export default function Calendar(props: any) {
             setShowMonths,
             months[curMonth],
             curYear,
-            minYear,
-            maxYear,
-            minMonth,
-            curMonth,
             "calendar-year-header-content"
           )}
 
@@ -216,10 +199,6 @@ export default function Calendar(props: any) {
             setShowMonths,
             months[curMonth],
             curYear,
-            minYear,
-            maxYear,
-            minMonth,
-            curMonth,
             "calendar-header-content"
           )}
 

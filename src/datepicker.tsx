@@ -1,5 +1,4 @@
 import React, {
-  Fragment,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -10,7 +9,7 @@ import Calendar from "./Calendar";
 import "./styles.css";
 
 interface IDatePickerProps {
-  delimeter?: string;
+  sep?: string;
   format?: string;
   onSelectDate: (val: string) => void;
 }
@@ -29,7 +28,7 @@ export function DatePicker(props: IDatePickerProps) {
   const [maxMonth, setMaxMonth] = useState<number | null>(null);
   const [maxYear, setMaxYear] = useState<number | null>(null);
   const [hasError, setHasError] = useState<string | null>(null);
-  const [delimeter] = useState<string | null>(props.delimeter || null);
+  const [delimeter] = useState<string | null>(props.sep || "-");
   const [resultFormat, setResultFormat] = useState<string | null>(
     props.format || null
   );

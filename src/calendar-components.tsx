@@ -6,45 +6,28 @@ import {
   renderSingleIncArrow,
 } from "./calendar-helpers";
 
-export const renderYearDecArrow = (
-  curYear: number,
-  minYear: number,
-  onYearDec: (e: any) => void
-) => {
-  const toShow = minYear && curYear === minYear ? false : true;
+export const renderYearDecArrow = (onYearDec: (e: any) => void) => {
   return (
     <div style={{ width: 18, minWidth: 18, maxWidth: 18 }}>
-      {toShow && (
-        <div
-          className="calendar-year-dec-arrow"
-          onClick={(e: any) => onYearDec(e)}
-        >
-          {renderDoubleDecArrow()}
-        </div>
-      )}
+      <div
+        className="calendar-year-dec-arrow"
+        onClick={(e: any) => onYearDec(e)}
+      >
+        {renderDoubleDecArrow()}
+      </div>
     </div>
   );
 };
 
-export const renderMonthDecArrow = (
-  onMonthDec: (e: any) => void,
-  curYear: number,
-  curMonth: number,
-  minYear: number,
-  minMonth: number
-) => {
-  const toShow =
-    minYear && minMonth && curYear === minYear ? curMonth > minMonth : true;
+export const renderMonthDecArrow = (onMonthDec: (e: any) => void) => {
   return (
     <div style={{ width: 18, minWidth: 18, maxWidth: 18 }}>
-      {toShow && (
-        <div
-          className="calendar-month-dec-arrow"
-          onClick={(e: any) => onMonthDec(e)}
-        >
-          {renderSingleDecArrow()}
-        </div>
-      )}
+      <div
+        className="calendar-month-dec-arrow"
+        onClick={(e: any) => onMonthDec(e)}
+      >
+        {renderSingleDecArrow()}
+      </div>
     </div>
   );
 };
@@ -69,15 +52,8 @@ export const renderHeader = (
   setShowMonths: Function,
   month: string,
   year: number,
-  minYear: number,
-  maxYear: number,
-  minMonth: number,
-  curMonth: number,
   className: string
 ) => {
-  const isYearClickable =
-    minYear && maxYear ? (minMonth && maxYear > minYear ? true : false) : true;
-  const clickableCls = isYearClickable ? "" : "not-clickable";
   return (
     <div className={className}>
       <div
@@ -90,21 +66,16 @@ export const renderHeader = (
       >
         {month}
       </div>
-      {isYearClickable && (
-        <div
-          className="calendar-cur-year"
-          onClick={() => {
-            setShowMonths(false);
-            setShowYears(true);
-            setShowTenYears(false);
-          }}
-        >
-          {year}
-        </div>
-      )}
-      {!isYearClickable && (
-        <div className={`calendar-cur-year ${clickableCls}`}>{year}</div>
-      )}
+      <div
+        className="calendar-cur-year"
+        onClick={() => {
+          setShowMonths(false);
+          setShowYears(true);
+          setShowTenYears(false);
+        }}
+      >
+        {year}
+      </div>
     </div>
   );
 };
